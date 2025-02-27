@@ -1,3 +1,22 @@
+# Chọn môi trường Python
+FROM python:3.9
+
+# Cập nhật hệ thống & cài đặt công cụ cần thiết
+RUN apt-get update && apt-get install -y git wget unzip curl && rm -rf /var/lib/apt/lists/*
+
+# Kiểm tra Python và pip
+RUN python --version && pip --version
+
+# Cài đặt DeepSeek-Coder nếu có thể
+RUN pip install deepseek-coder || true
+
+# Clone DeepSeek-Coder nếu không cài được qua pip
+RUN git clone https://github.com/DeepSeek-AI/DeepSeek-Coder.git /deepseek-coder && \
+    cd /deepseek-coder && \
+    pip install --no-cache-dir .
+
+# Thiết lập biến môi trường
+ENV PYTHONUNBUFFERED=1
 # Kiểm tra Python và pip trước khi cài đặt
 RUN python --version && pip --version
 RUN pip install deepseek-coder || true
