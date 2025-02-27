@@ -1,8 +1,8 @@
-# Dùng image có Python 3.9 sẵn
-FROM python:3.9-slim
+# Dùng image có Python 3.9 đầy đủ
+FROM python:3.9
 
-# Cài đặt các công cụ cần thiết
-RUN apt-get update && apt-get install -y wget unzip curl && rm -rf /var/lib/apt/lists/*
+# Cài đặt công cụ cần thiết
+RUN apt-get update && apt-get install -y git wget unzip curl && rm -rf /var/lib/apt/lists/*
 
 # Cài đặt ngrok
 RUN wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip && \
@@ -11,10 +11,12 @@ RUN wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip && \
     rm ngrok-stable-linux-amd64.zip
 
 # Cài đặt n8n
-RUN pip install --no-cache-dir n8n
+RUN pip install --no-cache-dir n8n torch transformers
 
-# Cài đặt DeepSeek Coder và các thư viện liên quan
-RUN pip install --no-cache-dir torch transformers deepseek-coder
+# Cài đặt DeepSeek Coder từ source
+RUN git clone https://github.com/DeepSeek-AI/DeepSeek-Coder.git /deepseek-coder && \
+    cd /deepseek-coder && \
+    pip install --no-cache-dir .
 
 # Thiết lập biến môi trường
 ENV N8N_HOST=0.0.0.0
