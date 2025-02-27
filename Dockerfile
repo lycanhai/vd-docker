@@ -1,3 +1,17 @@
+# Sử dụng Python 3.9 đầy đủ thay vì slim (slim có thể thiếu nhiều công cụ)
+FROM python:3.9
+
+# Cài đặt các công cụ cần thiết
+RUN apt-get update && apt-get install -y git wget unzip curl && rm -rf /var/lib/apt/lists/*
+
+# Kiểm tra xem git có hoạt động không
+RUN git --version
+
+# Clone repo và cài đặt DeepSeek-Coder
+RUN git clone https://github.com/DeepSeek-AI/DeepSeek-Coder.git /deepseek-coder && \
+    cd /deepseek-coder && \
+    pip install --no-cache-dir .
+
 # Dùng image có Python 3.9 đầy đủ
 FROM python:3.9
 
