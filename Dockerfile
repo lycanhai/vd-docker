@@ -1,6 +1,38 @@
 # Sử dụng Python 3.9 đầy đủ
 FROM python:3.9
 
+# Cập nhật hệ thống và cài đặt các công cụ cần thiết
+RUN apt-get update && apt-get install -y \
+    git \
+    wget \
+    unzip \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Cập nhật pip lên bản mới nhất
+RUN pip install --upgrade pip
+
+# Cài đặt thư viện cần thiết
+RUN pip install torch transformers
+
+# Clone DeepSeek-Coder từ GitHub
+RUN git clone https://github.com/DeepSeek-AI/DeepSeek-Coder.git /deepseek-coder
+
+# Chuyển vào thư mục DeepSeek-Coder
+WORKDIR /deepseek-coder
+
+# Tạo môi trường ảo (virtual environment) để tránh lỗi quyền root
+RUN python3 -m venv venv && . venv/bin/activate
+
+# Cài đặt các thư viện cần thiết nếu có tệp requirements.txt
+RUN [ -f requirements.txt ] && pip install -r requirements.txt || echo "No requirements.txt found"
+
+# Chạy thử mã mẫu (nếu có)
+CMD ["python3", "example.py"]
+
+# Sử dụng Python 3.9 đầy đủ
+FROM python:3.9
+
 # Cập nhật hệ thống và cài đặt công cụ cần thiết
 RUN apt-get update && apt-get install -y git wget unzip curl && rm -rf /var/lib/apt/lists/*
 
