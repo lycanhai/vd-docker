@@ -1,3 +1,27 @@
+# Sử dụng Python 3.9
+FROM python:3.9
+
+# Cập nhật hệ thống và cài đặt các công cụ cần thiết
+RUN apt-get update && apt-get install -y git wget unzip curl && rm -rf /var/lib/apt/lists/*
+
+# Cập nhật pip
+RUN pip install --upgrade pip
+
+# Cài đặt thư viện cần thiết
+RUN pip install torch transformers
+
+# Clone DeepSeek-Coder
+RUN git clone https://github.com/DeepSeek-AI/DeepSeek-Coder.git /deepseek-coder
+
+# Cài đặt dependencies nếu có
+WORKDIR /deepseek-coder
+RUN pip install -r requirements.txt || true
+
+# Tải model (DeepSeek có thể yêu cầu tải riêng)
+RUN mkdir -p /models && \
+    wget -O /models/deepseek-coder.tar.gz "https://huggingface.co/DeepSeek/deepseek-coder/resolve/main/model.tar.gz" && \
+    tar -xzf /models/deepseek-coder.tar.gz -C /models
+
 # Chọn môi trường Python
 FROM python:3.9
 
