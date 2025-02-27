@@ -4,8 +4,8 @@ FROM n8nio/n8n:latest-debian
 # Chạy với quyền root
 USER root
 
-# Cập nhật hệ thống và cài đặt các gói cần thiết
-RUN apt-get update && apt-get install -y wget unzip python3 python3-pip
+# Cập nhật hệ thống và cài đặt Python, pip, wget, unzip
+RUN apt-get update && apt-get install -y python3 python3-pip wget unzip
 
 # Cài đặt ngrok
 RUN wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip && \
@@ -14,7 +14,8 @@ RUN wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip && \
     rm ngrok-stable-linux-amd64.zip
 
 # Cài đặt DeepSeek Coder
-RUN pip install torch transformers deepseek-coder
+RUN pip3 install --upgrade pip  # Cập nhật pip
+RUN pip3 install torch transformers deepseek-coder
 
 # Thiết lập biến môi trường cho n8n
 ENV N8N_HOST=0.0.0.0
