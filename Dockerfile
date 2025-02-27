@@ -1,11 +1,18 @@
-# Sử dụng image Debian-based thay vì Alpine
+# Sử dụng image có Debian để dễ quản lý Python
 FROM n8nio/n8n:latest-debian
 
 # Chạy với quyền root
 USER root
 
-# Cập nhật hệ thống và cài đặt Python, pip, wget, unzip
-RUN apt-get update && apt-get install -y python3 python3-pip wget unzip
+# Cập nhật hệ thống và cài đặt Python 3.9+
+RUN apt-get update && apt-get install -y python3.9 python3.9-venv python3.9-dev python3-pip wget unzip
+
+# Cập nhật alias để python3 trỏ đến python3.9
+RUN ln -sf /usr/bin/python3.9 /usr/bin/python3
+RUN ln -sf /usr/bin/python3.9 /usr/bin/python
+
+# Kiểm tra phiên bản Python
+RUN python3 --version
 
 # Cài đặt ngrok
 RUN wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip && \
