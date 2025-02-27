@@ -1,8 +1,22 @@
-# Sử dụng Python 3.9
+# Sử dụng Python 3.9 đầy đủ
 FROM python:3.9
 
-# Cập nhật hệ thống và cài đặt các công cụ cần thiết
+# Cập nhật hệ thống và cài đặt công cụ cần thiết
 RUN apt-get update && apt-get install -y git wget unzip curl && rm -rf /var/lib/apt/lists/*
+
+# Cập nhật pip
+RUN pip install --upgrade pip
+
+# Cài đặt torch và transformers
+RUN pip install torch transformers
+
+# Clone DeepSeek-Coder
+RUN git clone https://github.com/DeepSeek-AI/DeepSeek-Coder.git /deepseek-coder
+
+# Chạy mã DeepSeek-Coder
+WORKDIR /deepseek-coder
+RUN python -c "print('DeepSeek-Coder cloned successfully!')"
+
 
 # Cập nhật pip
 RUN pip install --upgrade pip
