@@ -1,11 +1,11 @@
-# Dùng image Ubuntu-based của n8n
-FROM n8nio/n8n:ubuntu
+# Sử dụng image chính thức của n8n
+FROM n8nio/n8n:latest
 
 # Chạy với quyền root để cài đặt gói cần thiết
 USER root
 
 # Cập nhật hệ thống và cài đặt wget, unzip
-RUN apt-get update && apt-get install -y wget unzip
+RUN apk update && apk add --no-cache wget unzip
 
 # Tải và cài đặt ngrok
 RUN wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip && \
