@@ -1,4 +1,4 @@
-# Dùng image Debian-based thay vì Alpine
+# Sử dụng image Debian-based thay vì Alpine
 FROM n8nio/n8n:latest-debian
 
 # Chạy với quyền root
@@ -17,5 +17,8 @@ RUN wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip && \
 ENV N8N_HOST=0.0.0.0
 ENV N8N_PORT=5678
 
+# Thêm authtoken của ngrok
+ENV NGROK_AUTH_TOKEN=<2tcmpcGEf3WT7ZdBWGstzYydSnc_2Y9nHhvbfDHRYaNKSsrMG>
+
 # Chạy ngrok và n8n khi container khởi động
-CMD /bin/sh -c "(ngrok http 5678 --log=stdout &) && n8n"
+CMD /bin/sh -c "ngrok authtoken $NGROK_AUTH_TOKEN && (ngrok http 5678 --log=stdout &) && n8n"
