@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: n8n-ngrok
+    env: docker
+    repo: https://github.com/your-username/n8n-ngrok-render
+    branch: main
+    plan: free
+    healthCheckPath: /
+    envVars:
+      - key: N8N_BASIC_AUTH_USER
+        value: "admin"
+      - key: N8N_BASIC_AUTH_PASSWORD
+        value: "yourpassword"
+      - key: NGROK_AUTHTOKEN
+        sync: false  # Nhập thủ công trong Render Dashboard
