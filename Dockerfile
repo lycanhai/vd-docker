@@ -18,7 +18,7 @@ ENV N8N_HOST=0.0.0.0
 ENV N8N_PORT=5678
 
 # Thêm authtoken của ngrok
-ENV NGROK_AUTH_TOKEN=<docker run --net=host -it -e NGROK_AUTHTOKEN=2tcmpcGEf3WT7ZdBWGstzYydSnc_2Y9nHhvbfDHRYaNKSsrMG ngrok/ngrok:latest http 80>
+ENV NGROK_AUTH_TOKEN=<2tcmpcGEf3WT7ZdBWGstzYydSnc_2Y9nHhvbfDHRYaNKSsrMG>
 
 # Sử dụng Bash để chạy nhiều lệnh liên tiếp
 CMD ["/bin/bash", "-c", "ngrok authtoken $NGROK_AUTH_TOKEN && ngrok http 5678 --log=stdout & n8n"]
