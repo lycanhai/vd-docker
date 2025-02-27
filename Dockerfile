@@ -1,3 +1,6 @@
+# Kiểm tra Python và pip trước khi cài đặt
+RUN python --version && pip --version
+RUN pip install deepseek-coder || true
 # Sử dụng Python 3.9 đầy đủ thay vì slim (slim có thể thiếu nhiều công cụ)
 FROM python:3.9
 
