@@ -1,14 +1,11 @@
-# Sử dụng image chính thức của n8n
-FROM n8nio/n8n:latest
+# Dùng image Debian-based thay vì Alpine
+FROM n8nio/n8n:latest-debian
 
-# Chạy với quyền root để cài đặt gói cần thiết
+# Chạy với quyền root
 USER root
 
-# Chạy lệnh bằng `sh` thay vì `/bin/sh`
-SHELL ["/bin/sh", "-c"]
-
 # Cập nhật hệ thống và cài đặt wget, unzip
-RUN apk update && apk add --no-cache wget unzip
+RUN apt-get update && apt-get install -y wget unzip
 
 # Tải và cài đặt ngrok
 RUN wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip && \
@@ -21,4 +18,4 @@ ENV N8N_HOST=0.0.0.0
 ENV N8N_PORT=5678
 
 # Chạy ngrok và n8n khi container khởi động
-CMD sh -c "(ngrok http 5678 --log=stdout &) && n8n"
+CMD /bin/sh -c "(ngrok http 5678 --log=stdout &) && n8n"
