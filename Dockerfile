@@ -13,10 +13,11 @@ COPY package*.json ./
 # Cài đặt dependencies
 RUN npm install
 
-RUN chmod +x start.sh
-
 # Copy source code
 COPY . .
+
+# Cấp quyền thực thi cho start.sh
+RUN chmod +x start.sh
 
 # Cài đặt ngrok
 RUN wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.tgz \
