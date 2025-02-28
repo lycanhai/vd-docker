@@ -1,0 +1,12 @@
+{
+  "name": "n8n-ngrok-render",
+  "version": "1.0.0",
+  "description": "n8n and ngrok on Render.com",
+  "main": "index.js",
+  "scripts": {
+    "start": "n8n start --tunnel"
+  },
+  "dependencies": {
+    "n8n": "^1.0.0"  // Thay đổi phiên bản n8n nếu cần
+  }
+}
