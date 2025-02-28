@@ -29,3 +29,12 @@ EXPOSE 5678
 
 # Command chạy n8n và ngrok
 CMD ["sh", "start.sh"]
+###
+FROM python:3.9-slim
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    wget \
+    && rm -rf /var/lib/apt/lists/*
+WORKDIR /app
+RUN pip install --no-cache-dir deepseek-ai
+# ... các bước cài đặt khác ...
+CMD ["python", "run_deepseek.py"]
