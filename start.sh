@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Khởi chạy ngrok
-./ngrok http 5678 --log=stdout --region=auto &
+/usr/local/bin/ngrok http 5678 --log=stdout --region=auto &
 
 # Khởi chạy n8n
-n8n start --tunnel
+/app/node_modules/.bin/n8n start --tunnel
