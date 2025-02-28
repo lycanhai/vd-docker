@@ -27,6 +27,8 @@ RUN wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.tgz \
 # Expose port 5678 (n8n)
 EXPOSE 5678
 
+RUN ls -l /app/
+
 # Command chạy n8n và ngrok
 CMD ["sh", "start.sh"]
 ###
