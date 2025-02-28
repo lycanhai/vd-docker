@@ -31,10 +31,19 @@ EXPOSE 5678
 CMD ["sh", "start.sh"]
 ###
 FROM python:3.9-slim
+
 RUN apt-get update && apt-get install -y --no-install-recommends \
     wget \
     && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /app
+
 RUN pip install --no-cache-dir deepseek-ai
-# ... các bước cài đặt khác ...
+
+# Copy source code (bao gồm run_deepseek.py)
+COPY . .
+
+# Cấp quyền thực thi nếu cần
+# RUN chmod +x run_deepseek.py
+
 CMD ["python", "run_deepseek.py"]
