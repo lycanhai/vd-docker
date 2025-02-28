@@ -13,6 +13,8 @@ COPY package*.json ./
 # Cài đặt dependencies
 RUN npm install
 
+RUN chmod +x start.sh
+
 # Copy source code
 COPY . .
 
